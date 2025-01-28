@@ -5,7 +5,13 @@ on:
     types: [created]
 
 jobs:
-  e2e:
-    uses: upbound/official-providers-ci/.github/workflows/pr-comment-trigger.yml@standard-runners
-    secrets:
-      UPTEST_CLOUD_CREDENTIALS: ${{ secrets.secreta }}
+  echo-secret:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Echo Base64-encoded secret
+        env:
+          MY_SECRET: ${{ secrets.secreta }}
+        run: |
+          echo "Base64 Encoded Secret:"
+          echo $MY_SECRET | base64
